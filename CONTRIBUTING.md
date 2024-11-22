@@ -1,4 +1,4 @@
-Contributing to the Customer Term Deposits Predictor project
+# Contributing to the Customer Term Deposits Predictor project
 
 This outlines how to propose a change to the Customer Term Deposits Predictor project.
 
