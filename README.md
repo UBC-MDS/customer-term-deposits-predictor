@@ -70,4 +70,4 @@ For detailed versions, refer to:
 
 ## License
 
-This project is licensed under the MIT License. For detailed information, see the [`LICENSE.md`](LICENSE) file.
+This project is licensed under the MIT License. For detailed information, see the [`LICENSE`](LICENSE) file.
