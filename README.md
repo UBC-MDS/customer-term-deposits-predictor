@@ -66,7 +66,6 @@ The analysis requires the following packages:
 - Jupyter Lab 4.0+
 
 For detailed versions, refer to:
-- [`requirements.txt`](requirements.txt)
 - [`environment.yml`](environment.yml)
 
 ## License
