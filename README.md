@@ -30,6 +30,9 @@ Key objectives include:
 
 This analysis provides actionable insights to banks, allowing them to design more focused marketing strategies and build stronger relationships with customers by aligning products with their preferences.
 
+## Report
+The final report can be found [here](https://ubc-mds.github.io/customer-term-deposits-predictor/)
+
 ## How to Run the Data Analysis
 
 1. **Set Up the Environment**:
