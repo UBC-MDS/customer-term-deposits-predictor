@@ -1,4 +1,4 @@
-name: "group3"
+name: "customer-term-deposits-predictor"
 
 channels:
   - conda-forge
@@ -7,36 +7,34 @@ channels:
   - plotly
   - defaults
 dependencies:
+  - pandera=0.21.0
   - python==3.12
-  - ipykernel
-  - matplotlib
-  - pandas
-  - nb_conda_kernels
-  - scikit-learn>=1.5.1
-  - requests
-  - ipython
-  - graphviz
-  - python-graphviz
-  - jinja2
-  - lightgbm
-  - torchvision
-  - torchaudio
-  - pytorch
-  - autograd
-  - plotly
-  - panel
-  - watchfiles
-  - wikipedia
-  - altair-all
-  - vega_datasets # Example data
-  - pip>=24.2
+  - ipykernel=6.29.5
+  - matplotlib=3.9.2
+  - pandas=2.2.3
+  - nb_conda_kernels=2.5.1
+  - scikit-learn=1.5.2
+  - requests=2.32.3
+  - ipython=8.29.0
+  - graphviz=12.0.0
+  - python-graphviz=0.20.3
+  - jinja2=3.1.4
+  - lightgbm=4.5.0
+  - torchvision=0.20.1
+  - torchaudio=2.5.1
+  - pytorch=2.5.1
+  - plotly=5.24.1
+  - panel=1.5.4
+  - watchfiles=0.24.0
+  - altair-all=5.4.1
+  - vega_datasets=0.9.0
+  - pip
   - pip:
-      - mglearn
-      - otter-grader
-      - graphviz
-      - nbformat
-      - nbclient
-      - transformers
-      - datasets
-      - ultralytics
-      - psutil>=5.7.2
+      - mglearn==0.2.0
+      - graphviz==0.20.3
+      - nbformat==5.10.4
+      - nbclient==0.10.0
+      - transformers==4.46.3
+      - datasets==3.1.0
+      - ultralytics==8.3.34
+      - psutil==6.1.0
