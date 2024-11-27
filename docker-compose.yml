@@ -1,8 +1,13 @@
 services:
-  app:
-    image: customer-term-deposits-predictor
+  jupyter-notebook:
+    image: elshu13/customer-term-deposits-predictor:latest # Use the Docker Hub image
     ports:
       - "8888:8888" # Map container's port 8888 to local port 8888
     volumes:
-      - .:/home/jovyan/work # Mounts current directory to /home/jovyan/work in the container
+      - .:/home/jovyan # Mounts the current directory to /home/jovyan in the container
+    deploy:
+      resources:
+        limits:
+          memory: 5G # Limit memory usage to 5GB
+    platform: linux/amd64 # Ensure compatibility with the target architecture
     command: ["jupyter", "lab", "--ip=0.0.0.0", "--no-browser", "--allow-root"]
