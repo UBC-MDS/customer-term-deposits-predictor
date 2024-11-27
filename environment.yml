@@ -1,31 +1,23 @@
-name: "customer-term-deposits-predictor"
+name: "term-deposit-predictor"
 
 channels:
   - conda-forge
-  - pytorch
-  - anaconda
   - plotly
   - defaults
 dependencies:
   - pandera=0.21.0
-  - python==3.12
+  - python==3.11
   - ipykernel=6.29.5
   - matplotlib=3.9.2
-  - pandas=2.2.3
   - nb_conda_kernels=2.5.1
+  - pandas=2.2.3
   - scikit-learn=1.5.2
   - requests=2.32.3
   - ipython=8.29.0
   - graphviz=12.0.0
   - python-graphviz=0.20.3
-  - jinja2=3.1.4
-  - lightgbm=4.5.0
-  - torchvision=0.20.1
-  - torchaudio=2.5.1
-  - pytorch=2.5.1
   - plotly=5.24.1
   - panel=1.5.4
-  - watchfiles=0.24.0
   - altair-all=5.4.1
   - vega_datasets=0.9.0
   - pip
