@@ -1,0 +1,45 @@
+name: Publish Docker image
+
+on: 
+  # Trigger workflow manually or when specific files are changed
+  workflow_dispatch: # Allows manual triggering
+  push: 
+    paths: 
+      - 'Dockerfile'
+      - 'conda-linux-64.lock'
+      
+jobs:
+  push_to_registry:
+    name: Push Docker image to Docker Hub
+    runs-on: ubuntu-latest
+    steps:
+      # Step 1: Check out the repository
+      - name: Check out the repo
+        uses: actions/checkout@v4
+      
+      # Step 2: Log in to Docker Hub
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+      
+      # Step 3: Extract metadata (tags, labels) for Docker
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: elshu13/customer-term-deposits-predictor
+          tags: |
+            type=raw,value={{sha}},enable=${{github.ref_type != 'tag'}}
+            type=raw,value=latest
+      
+      # Step 4: Build and push the Docker image
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
