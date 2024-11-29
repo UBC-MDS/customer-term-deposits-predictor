@@ -50,7 +50,7 @@ The final report can be found [here](https://ubc-mds.github.io/customer-term-dep
 
 3. **Run the Analysis in Docker**:
    - Ensure you are connected to the term-deposit-predictor environment in the Jupyter Lab container:
-     <img src="jupyter-environment-check">
+     <img src="jupyter-environment-check.png">
    - If you are not in the environment, from the dropdown options under Start Preferred Kernel select
      `Python [conda env:term-deposit-predictor]*`
    - Navigate to the analysis folder and open the `customer-term-deposits-predictor.ipynb` notebook
