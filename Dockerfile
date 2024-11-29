@@ -9,6 +9,7 @@ RUN mamba create --quiet --name term-deposit-predictor --file /tmp/conda-linux-6
     && fix-permissions "${CONDA_DIR}" \
     && fix-permissions "/home/${NB_USER}"
 
+RUN /opt/conda/envs/term-deposit-predictor/bin/pip install deepchecks==0.18.1
 # Add the environment to Jupyter as a kernel
 RUN /opt/conda/envs/term-deposit-predictor/bin/python -m ipykernel install --user --name term-deposit-predictor --display-name "Python (term-deposit-predictor)"
 
