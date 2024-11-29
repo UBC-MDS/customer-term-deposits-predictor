@@ -35,27 +35,32 @@ The final report can be found [here](https://ubc-mds.github.io/customer-term-dep
 
 ## How to Run the Data Analysis
 
-1. **Set Up the Environment**:
-   - Ensure you have Python 3.8 or higher installed.
-   - Install dependencies by running:
-     ```bash
-     pip install -r requirements.txt
-     ```
-   - Alternatively, create a Conda environment:
-     ```bash
-     conda env create -f environment.yml
-     conda activate customer-term-deposits
-     ```
+> Ensure Docker Desktop is running on your desktop.
 
-2. **Run the Analysis**:
-   - Launch Jupyter Lab:
-     ```bash
-     jupyter lab
-     ```
-   - Open `notebooks/analysis.ipynb` and execute the cells to run the full analysis pipeline.
+1. **Clone this github repository**
 
-3. **Preprocessed Data**:
-   - Preprocessed datasets (`X_train_scaled`, `X_test_scaled`, `y_train`, `y_test`) are available in the `data/processed/` folder.
+2. **Open Docker**:
+   - In your command line, navigate to the root of this project directory and enter the following command:
+    ``` 
+    docker-compose up
+    ```
+    - Note: this command may take a few minutes to run.
+    - Once the command is finished running, look for a URL that starts with "http://127.0.0.1:8888/lab?token=". Copy and paste
+      this URL into your browser. 
+
+3. **Run the Analysis in Docker**:
+   - Ensure you are connected to the term-deposit-predictor environment in the Jupyter Lab container:
+     <img src="jupyter-environment-check">
+   - If you are not in the environment, from the dropdown options under Start Preferred Kernel select
+     `Python [conda env:term-deposit-predictor]*`
+   - Navigate to the analysis folder and open the `customer-term-deposits-predictor.ipynb` notebook
+   - Under the "Kernel" menu select "Restart Kernel and Run all Cells..."
+     
+4. **Shutting down Docker**
+   - To close out of the container, exit out of the browser and return back to your terminal.
+   - In the terminal where you launched the container, enter `Cntrl` + `C` on your keyboard
+   - Then type `docker-compose rm`
+   - Type `y` and hit enter to remove the container
 
 ## Dependencies
 
@@ -65,7 +70,6 @@ The analysis requires the following packages:
 - numpy 1.23+
 - seaborn 0.12+
 - matplotlib 3.6+
-- scikit-learn 1.5+
 - Jupyter Lab 4.0+
 
 For detailed versions, refer to:
