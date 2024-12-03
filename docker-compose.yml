@@ -1,6 +1,6 @@
 services:
   jupyter-notebook:
-    image: elshu13/customer-term-deposits-predictor:8e80b7e # Use the Docker Hub image
+    image: elshu13/customer-term-deposits-predictor:d72244f # Use the Docker Hub image
     ports:
       - "8888:8888" # Map container's port 8888 to local port 8888
     volumes:
