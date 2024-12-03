@@ -19,6 +19,9 @@ dependencies:
   - plotly=5.24.1
   - panel=1.5.4
   - seaborn=0.12.2
+  - quarto=1.5.57
+  - click=8.1.7
+  - tabulate=0.9.0
   - altair-all=5.4.1
   - vega_datasets=0.9.0
   - pip
