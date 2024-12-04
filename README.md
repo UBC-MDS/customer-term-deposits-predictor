@@ -55,8 +55,11 @@ The final report can be found [here](https://ubc-mds.github.io/customer-term-dep
      `Python [conda env:term-deposit-predictor]*`
    - Navigate to the analysis folder and open the `customer-term-deposits-predictor.ipynb` notebook
    - Under the "Kernel" menu select "Restart Kernel and Run all Cells..."
+
+4. Open terminal and run the following:
+python scripts/download_customer_data.py --url https://archive.ics.uci.edu/static/public/222/bank+marketing.zip --path1 data/raw/bank+marketing.zip  --path2 data/raw/bank_marketing --path3 data/raw/bank-full.csv  --path4 data/raw/
      
-4. **Shutting down Docker**
+5. **Shutting down Docker**
    - To close out of the container, exit out of the browser and return back to your terminal.
    - In the terminal where you launched the container, enter `Cntrl` + `C` on your keyboard
    - Then type `docker-compose rm`
