@@ -65,6 +65,31 @@ python scripts/download_customer_data.py \
     --path3 data/raw/bank-full.csv  \
     --path4 data/raw/
 
+python scripts/clean_data.py \
+    --input_path data/raw/bank-full.csv \
+    --output_path data/processed/cleaned_data.csv
+
+
+python scripts/validate.py \
+    --input_path data/processed/cleaned_data.csv
+
+python scripts/preprocess_data.py \
+    --input_path data/processed/cleaned_data.csv \
+    --output_path data/processed/preprocessed_data.csv
+
+python scripts/split_data.py \
+    --input_path data/processed/preprocessed_data.csv \
+    --output_train_x data/processed/X_train.csv \
+    --output_train_y data/processed/y_train.csv \
+    --output_test_x data/processed/X_test.csv \
+    --output_test_y data/processed/y_test.csv
+
+python scripts/eda.py \
+    --train_x_path data/processed/X_train.csv \
+    --train_y_path data/processed/y_train.csv \
+    --figures_dir results/figures \
+    --tables_dir results/tables
+
 quarto render analysis/customer-term-deposits-predictor.qmd --to html
 ```
      
