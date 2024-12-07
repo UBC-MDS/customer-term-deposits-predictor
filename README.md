@@ -90,6 +90,19 @@ python scripts/eda.py \
     --figures_dir results/figures \
     --tables_dir results/tables
 
+python scripts/fit_logistic_regression.py \
+    --x-training-data data/processed/X_train.csv \
+    --y-training-data data/processed/y_train.csv \
+    --pipeline-to results/models \
+    --plot-to results/figures \
+    --seed 123
+
+python scripts/evaluate.py \
+    --x-test-data data/processed/X_test.csv \
+    --y-test-data data/processed/y_test.csv \
+    --plot-to results/figures
+
+
 quarto render analysis/customer-term-deposits-predictor.qmd --to html
 ```
      
