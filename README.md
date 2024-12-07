@@ -31,7 +31,7 @@ Key objectives include:
 This analysis provides actionable insights to banks, allowing them to design more focused marketing strategies and build stronger relationships with customers by aligning products with their preferences.
 
 ## Report
-The final report can be found [here](https://ubc-mds.github.io/customer-term-deposits-predictor/)
+The final report can be found [here](https://ubc-mds.github.io/customer-term-deposits-predictor/analysis/customer-term-deposits-predictor.html)
 
 ## How to Run the Data Analysis
 
@@ -57,7 +57,16 @@ The final report can be found [here](https://ubc-mds.github.io/customer-term-dep
    - Under the "Kernel" menu select "Restart Kernel and Run all Cells..."
 
 4. Open terminal and run the following:
-python scripts/download_customer_data.py --url https://archive.ics.uci.edu/static/public/222/bank+marketing.zip --path1 data/raw/bank+marketing.zip  --path2 data/raw/bank_marketing --path3 data/raw/bank-full.csv  --path4 data/raw/
+```
+python scripts/download_customer_data.py \
+    --url https://archive.ics.uci.edu/static/public/222/bank+marketing.zip \
+    --path1 data/raw/bank+marketing.zip  \
+    --path2 data/raw/bank_marketing \
+    --path3 data/raw/bank-full.csv  \
+    --path4 data/raw/
+
+quarto render analysis/customer-term-deposits-predictor.qmd --to html
+```
      
 5. **Shutting down Docker**
    - To close out of the container, exit out of the browser and return back to your terminal.
