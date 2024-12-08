@@ -68,12 +68,12 @@ The analysis of the dataset reveals several key findings about customer behavior
 
 The logistic regression model achieved a macro-average recall of `{python} recall_macro_avg` and an AUC score of 0.75, indicating moderate predictive power. As we can see from the Confusion Matrix in @fig-confusion, while the model performs well at identifying non-subscribers, it struggles with precision (`{python} precision_score`) for subscribers. This result aligns with expectations given the imbalanced nature of the dataset, as the model tends to predict the majority class more accurately. The class balancing approach partially mitigated this issue by improving recall for the minority class (term deposit subscribers), but precision remains a challenge.
 
-![Confusion matrix of the logistic regression model, showing true positives, true negatives, false positives, and false negatives](../results/figures/confusion_matrix.png){#fig-confusion}
+![Confusion matrix of the logistic regression model, showing true positives, true negatives, false positives, and false negatives](../results/figures/Confusion_Matrix.png){#fig-confusion}
 
 
 These findings have practical implications for the bank’s marketing strategy. By leveraging the model's predictions, the bank can focus its campaigns on customers more likely to subscribe, optimizing resource allocation. However, the low precision suggests that many non-subscribers may still be targeted, potentially increasing costs and reducing campaign efficiency. Therefore, improving precision should be a focus for future modeling efforts. The Precision-Recall curve below in @fig-pr-curve provides a visual view of the balance between precision and recall rates.
 
-![Precision-Recall curve of the logistic regression model, highlighting the trade-off between precision and recall for different thresholds.](../results/figures/pr_curve.png){#fig-pr-curve}
+![Precision-Recall curve of the logistic regression model, highlighting the trade-off between precision and recall for different thresholds.](../results/figures/PR_curve.png){#fig-pr-curve}
 
 
 This analysis raises several questions for future research:
