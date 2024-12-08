@@ -114,7 +114,7 @@ div.csl-indent {
 
 <section id="summary" class="level1">
 <h1>Summary</h1>
-<p>For this analysis, we built a logistic regression classification model using data from a Portuguese banking institution to predict whether a bank client will agree to open a term deposit. A term deposits is a secure investment option where individuals deposit money for a fixed term at an agreed interest rate, with the principal amount and interest paid out at the end of the term. The logistic regression model achieved a macro-average recall of 0.68 and an AUC score of 0.75, indicating moderate predictive power. While the model performs well at identifying non-subscribers, it struggles with precision (0.23) for subscribers. In the 13,564 test cases, the model correctly predicted 1,058 new subscribers, but incorrectly predicted 3525 false positives (clients predicted to subscribe when they would not). These false positives would result in additional phone calls being made, despite not leading to a successful subscription. However, by applying the model’s predictions, the number of phone calls would be significantly reduced, while the overall success rate for subscriber identification would increase to 23.09% (up from 11.78% if all 13,564 calls were made). Moving forward, improving precision should be a key focus for future modeling efforts to enhance both the accuracy and cost-effectiveness of the campaign.</p>
+<p>For this analysis, we built a logistic regression classification model using data from a Portuguese banking institution to predict whether a bank client will agree to open a term deposit. A term deposits is a secure investment option where individuals deposit money for a fixed term at an agreed interest rate, with the principal amount and interest paid out at the end of the term. The logistic regression model achieved a macro-average recall of 0.68, indicating moderate predictive power. While the model performs well at identifying non-subscribers, it struggles with precision (0.24) for subscribers. In the 13,564 test cases, the model correctly predicted 1,058 new subscribers, but incorrectly predicted 3525 false positives (clients predicted to subscribe when they would not). These false positives would result in additional phone calls being made, despite not leading to a successful subscription. However, by applying the model’s predictions, the number of phone calls would be significantly reduced, while the overall success rate for subscriber identification would increase to 23.09% (up from 11.78% if all 13,564 calls were made). Moving forward, improving precision should be a key focus for future modeling efforts to enhance both the accuracy and cost-effectiveness of the campaign.</p>
 </section>
 <section id="introduction" class="level1">
 <h1>Introduction</h1>
@@ -132,92 +132,65 @@ div.csl-indent {
 <section id="analysis" class="level2">
 <h2 class="anchored" data-anchor-id="analysis">Analysis</h2>
 <p>To prepare the dataset for analysis, we addressed missing values and removed irrelevant columns. Missing values in job and education were imputed with the mode, as their proportions were small, and mode imputation preserves their categorical nature. For contact, we visualized its relationship with the target variable (y) and found that contact method correlates with subscription rates. Based on this insight, missing values in contact were replaced with “Unknown Contact” to retain its predictive value. Columns like poutcome, which had excessive missing values (82%), were dropped to reduce noise, while duration was removed to prevent data leakage, as it directly correlates with the target variable. These cleaning decisions ensure a clean, consistent dataset, while preserving key patterns for predictive modeling.</p>
-<div id="fig-target-variable" class="quarto-float quarto-figure quarto-figure-center anchored">
+<p><a href="#fig-facet_grid_plot" class="quarto-xref">Figure&nbsp;1</a> below shows the distribution of feature variables between non-subscribers (in blue) and subscribers (in orange). This distribution plot, along with the summary statistics provide an overview of the central tendencies, variability, and range of the numerical columns in the dataset. The age column, with a mean of 41 years and a standard deviation of 10.6, indicates a diverse range from 18 to 95 years. The balance column shows significant variability, with a wide range from -8019 to 98417 and a standard deviation over 3009, suggesting the presence of outliers. The day column, representing the last contact day, is evenly distributed across the month, while campaign has a median of 2 and a maximum of 63, showing that most clients were contacted only a few times. The pdays column has many entries with -1, likely indicating no prior contact, while previous has a low mean (0.59) but a maximum of 275, highlighting infrequent yet extreme cases. These statistics offer critical insights into the dataset’s distribution and help identify features that may need further preprocessing.</p>
+<div id="fig-facet_grid_plot" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-target-variable-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="../results/figures/target_variable_distribution.png" class="img-fluid figure-img">
+<div aria-describedby="fig-facet_grid_plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../results/figures/facet_grid_plot.png" class="img-fluid figure-img">
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-target-variable-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;1: Distribution of Target Variable
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-facet_grid_plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Distribution charts comparing training feature variables between non-subscribers (in blue) and subscribers (in orange)
 </figcaption>
 </figure>
 </div>
-<p><strong>Figure <a href="#fig-target-variable" class="quarto-xref">Figure&nbsp;4</a>:</strong> Distribution of the target variable (term deposit subscription), highlighting the imbalanced nature of the dataset.</p>
-<p>The summary statistics provide an overview of the central tendencies, variability, and range of the numerical columns in the dataset. The age column, with a mean of 41 years and a standard deviation of 10.6, indicates a diverse range from 18 to 95 years. The balance column shows significant variability, with a wide range from -8019 to 102127 and a standard deviation over 3000, suggesting the presence of outliers. The day column, representing the last contact day, is evenly distributed across the month, while campaign has a median of 2 and a maximum of 63, showing that most clients were contacted only a few times. The pdays column has many entries with -1, likely indicating no prior contact, while previous has a low mean (0.58) but a maximum of 275, highlighting infrequent yet extreme cases. These statistics offer critical insights into the dataset’s distribution and help identify features that may need further preprocessing.</p>
-<div id="fig-balance-distribution" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-balance-distribution-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="../results/figures/balance_distribution.png" class="img-fluid figure-img">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-balance-distribution-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;2: Balance Distribution
-</figcaption>
-</figure>
-</div>
-<p><strong>Figure <a href="#fig-balance-distribution" class="quarto-xref">Figure&nbsp;2</a>:</strong> Distribution of customer balances, highlighting the variability and presence of outliers.</p>
-<p>The correlation heatmap reveals that most numerical features have weak or negligible correlations, indicating low multicollinearity and diverse contributions to prediction. A notable moderate correlation (0.45) exists between pdays and previous, suggesting some redundancy, but other features like age, balance, and campaign show minimal linear relationships. This suggests that the numerical features are largely independent and suitable for modeling without significant concerns about collinearity.</p>
+<p>The correlation heatmap in <a href="#fig-correlation" class="quarto-xref">Figure&nbsp;2</a> reveals that most numerical features have weak or negligible correlations, indicating low multicollinearity and diverse contributions to prediction. A notable moderate correlation (0.45) exists between pdays and previous, suggesting some redundancy, but other features like age, balance, and campaign show minimal linear relationships. This suggests that the numerical features are largely independent and suitable for modeling without significant concerns about collinearity.</p>
 <div id="fig-correlation" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-correlation-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="../results/figures/correlation_heatmap.png" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-correlation-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;3: Correlation Heatmap
+Figure&nbsp;2: Correlation heatmap of numerical features, showing relationships and multicollinearity.
 </figcaption>
 </figure>
 </div>
-<p><strong>Figure <a href="#fig-correlation" class="quarto-xref">Figure&nbsp;3</a>:</strong> Correlation heatmap of numerical features, showing relationships and multicollinearity.</p>
 </section>
 </section>
 <section id="results-and-discussion" class="level1">
 <h1>Results and Discussion</h1>
-<p>The analysis of the dataset reveals several key findings about customer behavior and the performance of the logistic regression model. The dataset comprises 45,211 records, each describing a bank customer’s characteristics and whether they subscribed to a term deposit. Notably, the target variable is highly imbalanced, with only 11.7% of customers subscribing. This imbalance significantly impacts the evaluation of predictive models, making metrics like precision, recall, and the AUC score crucial for assessing model performance.</p>
+<p>The analysis of the dataset reveals several key findings about customer behavior and the performance of the logistic regression model. The dataset comprises 45,211 records, each describing a bank customer’s characteristics and whether they subscribed to a term deposit. Notably, we can see from <a href="#fig-target-variable" class="quarto-xref">Figure&nbsp;3</a> that the target variable (labeled orange) is highly imbalanced, with only 11.7% of customers subscribing. This imbalance significantly impacts the evaluation of predictive models, making metrics like precision, recall, and the AUC score crucial for assessing model performance.</p>
 <div id="fig-target-variable" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-target-variable-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="../results/figures/target_variable_distribution.png" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-target-variable-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;4: Distribution of Target Variable
+Figure&nbsp;3: Distribution of the target variable (term deposit subscription), highlighting the imbalanced nature of the dataset.
 </figcaption>
 </figure>
 </div>
-<p><strong>Figure <a href="#fig-target-variable" class="quarto-xref">Figure&nbsp;4</a>:</strong> Distribution of the target variable (term deposit subscription), highlighting the imbalance in the dataset.</p>
-<p>The logistic regression model achieved a macro-average recall of 0.68 and an AUC score of 0.75, indicating moderate predictive power. While the model performs well at identifying non-subscribers, it struggles with precision (0.23) for subscribers. This result aligns with expectations given the imbalanced nature of the dataset, as the model tends to predict the majority class more accurately. The class balancing approach partially mitigated this issue by improving recall for the minority class (term deposit subscribers), but precision remains a challenge.</p>
+<p>The logistic regression model achieved a macro-average recall of 0.68 and an AUC score of 0.75, indicating moderate predictive power. As we can see from the Confusion Matrix in <a href="#fig-confusion" class="quarto-xref">Figure&nbsp;4</a>, while the model performs well at identifying non-subscribers, it struggles with precision (0.24) for subscribers. This result aligns with expectations given the imbalanced nature of the dataset, as the model tends to predict the majority class more accurately. The class balancing approach partially mitigated this issue by improving recall for the minority class (term deposit subscribers), but precision remains a challenge.</p>
 <div id="fig-confusion" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-confusion-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="../results/figures/confusion_matrix.png" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-confusion-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;5: Confusion Matrix
+Figure&nbsp;4: Confusion matrix of the logistic regression model, showing true positives, true negatives, false positives, and false negatives
 </figcaption>
 </figure>
 </div>
-<p><strong>Figure <a href="#fig-confusion" class="quarto-xref">Figure&nbsp;5</a>:</strong> Confusion matrix of the logistic regression model, showing true positives, true negatives, false positives, and false negatives.</p>
-<div id="fig-roc" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-roc-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="../results/figures/roc_curve.png" class="img-fluid figure-img">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-roc-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;6: ROC Curve
-</figcaption>
-</figure>
-</div>
-<p><strong>Figure <a href="#fig-roc" class="quarto-xref">Figure&nbsp;6</a>:</strong> ROC curve of the logistic regression model, illustrating the trade-off between sensitivity and specificity.</p>
-<p>These findings have practical implications for the bank’s marketing strategy. By leveraging the model’s predictions, the bank can focus its campaigns on customers more likely to subscribe, optimizing resource allocation. However, the low precision suggests that many non-subscribers may still be targeted, potentially increasing costs and reducing campaign efficiency. Therefore, improving precision should be a focus for future modeling efforts.</p>
+<p>These findings have practical implications for the bank’s marketing strategy. By leveraging the model’s predictions, the bank can focus its campaigns on customers more likely to subscribe, optimizing resource allocation. However, the low precision suggests that many non-subscribers may still be targeted, potentially increasing costs and reducing campaign efficiency. Therefore, improving precision should be a focus for future modeling efforts. The Precision-Recall curve below in <a href="#fig-pr-curve" class="quarto-xref">Figure&nbsp;5</a> provides a visual view of the balance between precision and recall rates.</p>
 <div id="fig-pr-curve" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-pr-curve-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="../results/figures/pr_curve.png" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-pr-curve-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;7: Precision-Recall Curve
+Figure&nbsp;5: Precision-Recall curve of the logistic regression model, highlighting the trade-off between precision and recall for different thresholds.
 </figcaption>
 </figure>
 </div>
-<p><strong>Figure <a href="#fig-pr-curve" class="quarto-xref">Figure&nbsp;7</a>:</strong> Precision-Recall curve of the logistic regression model, highlighting the trade-off between precision and recall for different thresholds.</p>
 <p>This analysis raises several questions for future research:</p>
 <ol type="1">
 <li>Can advanced machine learning models, such as random forests or gradient boosting machines, improve predictive accuracy and precision for the minority class?</li>

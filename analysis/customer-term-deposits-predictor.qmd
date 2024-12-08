@@ -11,22 +11,22 @@ bibliography: references.bib
 execute:
   echo: false
   warning: false
-jupyter:
-  jupytext:
-    text_representation:
-      extension: .qmd
-      format_name: quarto
-      format_version: '1.0'
-      jupytext_version: 1.16.4
-  kernelspec:
-    display_name: 'Python [conda env:term-deposit-predictor]'
-    language: python
-    name: conda-env-term-deposit-predictor-py
 ---
+
+```{python}
+import pandas as pd
+```
+
+```{python}
+scoring_metrics = pd.read_csv("../results/tables/metrics.csv", index_col=0)
+summary_statistics = pd.read_csv("../results/tables/summary_statistics.csv", index_col=0)
+recall_macro_avg = round(float(scoring_metrics.loc['recall', 'macro avg']), 2)
+precision_score = round(float(scoring_metrics.loc['precision', '1']),2)
+```
 
 # Summary
 
-For this analysis, we built a logistic regression classification model using data from a Portuguese banking institution to predict whether a bank client will agree to open a term deposit. A term deposits is a secure investment option where individuals deposit money for a fixed term at an agreed interest rate, with the principal amount and interest paid out at the end of the term.  The logistic regression model achieved a macro-average recall of 0.68 and an AUC score of 0.75, indicating moderate predictive power. While the model performs well at identifying non-subscribers, it struggles with precision (0.23) for subscribers. In the 13,564 test cases, the model correctly predicted 1,058 new subscribers, but incorrectly predicted 3525 false positives (clients predicted to subscribe when they would not). These false positives would result in additional phone calls being made, despite not leading to a successful subscription. However, by applying the model’s predictions, the number of phone calls would be significantly reduced, while the overall success rate for subscriber identification would increase to 23.09% (up from 11.78% if all 13,564 calls were made). Moving forward, improving precision should be a key focus for future modeling efforts to enhance both the accuracy and cost-effectiveness of the campaign.
+For this analysis, we built a logistic regression classification model using data from a Portuguese banking institution to predict whether a bank client will agree to open a term deposit. A term deposits is a secure investment option where individuals deposit money for a fixed term at an agreed interest rate, with the principal amount and interest paid out at the end of the term.  The logistic regression model achieved a macro-average recall of `{python} recall_macro_avg`, indicating moderate predictive power. While the model performs well at identifying non-subscribers, it struggles with precision (`{python} precision_score`) for subscribers. In the 13,564 test cases, the model correctly predicted 1,058 new subscribers, but incorrectly predicted 3525 false positives (clients predicted to subscribe when they would not). These false positives would result in additional phone calls being made, despite not leading to a successful subscription. However, by applying the model’s predictions, the number of phone calls would be significantly reduced, while the overall success rate for subscriber identification would increase to 23.09% (up from 11.78% if all 13,564 calls were made). Moving forward, improving precision should be a key focus for future modeling efforts to enhance both the accuracy and cost-effectiveness of the campaign.
 
 # Introduction 
 
@@ -48,50 +48,32 @@ For our analysis, we used the following packages from the Python programming lan
 
 To prepare the dataset for analysis, we addressed missing values and removed irrelevant columns. Missing values in job and education were imputed with the mode, as their proportions were small, and mode imputation preserves their categorical nature. For contact, we visualized its relationship with the target variable (y) and found that contact method correlates with subscription rates. Based on this insight, missing values in contact were replaced with "Unknown Contact" to retain its predictive value. Columns like poutcome, which had excessive missing values (82%), were dropped to reduce noise, while duration was removed to prevent data leakage, as it directly correlates with the target variable. These cleaning decisions ensure a clean, consistent dataset, while preserving key patterns for predictive modeling.
 
-![Distribution of Target Variable](../results/figures/target_variable_distribution.png){#fig-target-variable}
 
-**Figure @fig-target-variable:** Distribution of the target variable (term deposit subscription), highlighting the imbalanced nature of the dataset.
+@fig-facet_grid_plot below shows the distribution of feature variables between non-subscribers (in blue) and subscribers (in orange). This distribution plot, along with the summary statistics provide an overview of the central tendencies, variability, and range of the numerical columns in the dataset. The age column, with a mean of `{python} int(round(summary_statistics.loc['mean', 'age']))` years and a standard deviation of `{python} round(float(summary_statistics.loc['std', 'age']),1)`, indicates a diverse range from `{python} int(summary_statistics.loc['min', 'age'])` to `{python} int(summary_statistics.loc['max', 'age'])` years. The balance column shows significant variability, with a wide range from `{python} round(int(summary_statistics.loc['min', 'balance']))` to `{python} round(int(summary_statistics.loc['max', 'balance']))` and a standard deviation over `{python} round(int(summary_statistics.loc['std', 'balance']))`, suggesting the presence of outliers. The day column, representing the last contact day, is evenly distributed across the month, while campaign has a median of `{python} round(int(summary_statistics.loc['50%', 'campaign']))` and a maximum of `{python} round(int(summary_statistics.loc['max', 'campaign']))`, showing that most clients were contacted only a few times. The pdays column has many entries with `{python} round(int(summary_statistics.loc['50%', 'pdays']))`, likely indicating no prior contact, while previous has a low mean (`{python} round(float(summary_statistics.loc['mean', 'previous']),2)`) but a maximum of `{python} round(int(summary_statistics.loc['max', 'previous']))`, highlighting infrequent yet extreme cases. These statistics offer critical insights into the dataset’s distribution and help identify features that may need further preprocessing.
 
-
-The summary statistics provide an overview of the central tendencies, variability, and range of the numerical columns in the dataset. The age column, with a mean of 41 years and a standard deviation of 10.6, indicates a diverse range from 18 to 95 years. The balance column shows significant variability, with a wide range from -8019 to 102127 and a standard deviation over 3000, suggesting the presence of outliers. The day column, representing the last contact day, is evenly distributed across the month, while campaign has a median of 2 and a maximum of 63, showing that most clients were contacted only a few times. The pdays column has many entries with -1, likely indicating no prior contact, while previous has a low mean (0.58) but a maximum of 275, highlighting infrequent yet extreme cases. These statistics offer critical insights into the dataset’s distribution and help identify features that may need further preprocessing.
-
-![Balance Distribution](../results/figures/balance_distribution.png){#fig-balance-distribution}
-
-**Figure @fig-balance-distribution:** Distribution of customer balances, highlighting the variability and presence of outliers.
+![Distribution charts comparing training feature variables between non-subscribers (in blue) and subscribers (in orange)](../results/figures/facet_grid_plot.png){#fig-facet_grid_plot}
 
 
-The correlation heatmap reveals that most numerical features have weak or negligible correlations, indicating low multicollinearity and diverse contributions to prediction. A notable moderate correlation (0.45) exists between pdays and previous, suggesting some redundancy, but other features like age, balance, and campaign show minimal linear relationships. This suggests that the numerical features are largely independent and suitable for modeling without significant concerns about collinearity.
+The correlation heatmap in @fig-correlation reveals that most numerical features have weak or negligible correlations, indicating low multicollinearity and diverse contributions to prediction. A notable moderate correlation (0.45) exists between pdays and previous, suggesting some redundancy, but other features like age, balance, and campaign show minimal linear relationships. This suggests that the numerical features are largely independent and suitable for modeling without significant concerns about collinearity.
 
-![Correlation Heatmap](../results/figures/correlation_heatmap.png){#fig-correlation}
-
-**Figure @fig-correlation:** Correlation heatmap of numerical features, showing relationships and multicollinearity.
+![Correlation heatmap of numerical features, showing relationships and multicollinearity.](../results/figures/correlation_heatmap.png){#fig-correlation}
 
 
 # Results and Discussion
 
-The analysis of the dataset reveals several key findings about customer behavior and the performance of the logistic regression model. The dataset comprises 45,211 records, each describing a bank customer’s characteristics and whether they subscribed to a term deposit. Notably, the target variable is highly imbalanced, with only 11.7% of customers subscribing. This imbalance significantly impacts the evaluation of predictive models, making metrics like precision, recall, and the AUC score crucial for assessing model performance.
+The analysis of the dataset reveals several key findings about customer behavior and the performance of the logistic regression model. The dataset comprises 45,211 records, each describing a bank customer’s characteristics and whether they subscribed to a term deposit. Notably, we can see from @fig-target-variable that the target variable (labeled orange) is highly imbalanced, with only 11.7% of customers subscribing. This imbalance significantly impacts the evaluation of predictive models, making metrics like precision, recall, and the AUC score crucial for assessing model performance.
 
-![Distribution of Target Variable](../results/figures/target_variable_distribution.png){#fig-target-variable}
-
-**Figure @fig-target-variable:** Distribution of the target variable (term deposit subscription), highlighting the imbalance in the dataset.
+![Distribution of the target variable (term deposit subscription), highlighting the imbalanced nature of the dataset.](../results/figures/target_variable_distribution.png){#fig-target-variable}
 
 
-The logistic regression model achieved a macro-average recall of 0.68 and an AUC score of 0.75, indicating moderate predictive power. While the model performs well at identifying non-subscribers, it struggles with precision (0.23) for subscribers. This result aligns with expectations given the imbalanced nature of the dataset, as the model tends to predict the majority class more accurately. The class balancing approach partially mitigated this issue by improving recall for the minority class (term deposit subscribers), but precision remains a challenge.
+The logistic regression model achieved a macro-average recall of `{python} recall_macro_avg` and an AUC score of 0.75, indicating moderate predictive power. As we can see from the Confusion Matrix in @fig-confusion, while the model performs well at identifying non-subscribers, it struggles with precision (`{python} precision_score`) for subscribers. This result aligns with expectations given the imbalanced nature of the dataset, as the model tends to predict the majority class more accurately. The class balancing approach partially mitigated this issue by improving recall for the minority class (term deposit subscribers), but precision remains a challenge.
 
-![Confusion Matrix](../results/figures/confusion_matrix.png){#fig-confusion}
-
-**Figure @fig-confusion:** Confusion matrix of the logistic regression model, showing true positives, true negatives, false positives, and false negatives.
-
-![ROC Curve](../results/figures/roc_curve.png){#fig-roc}
-
-**Figure @fig-roc:** ROC curve of the logistic regression model, illustrating the trade-off between sensitivity and specificity.
+![Confusion matrix of the logistic regression model, showing true positives, true negatives, false positives, and false negatives](../results/figures/confusion_matrix.png){#fig-confusion}
 
 
-These findings have practical implications for the bank’s marketing strategy. By leveraging the model's predictions, the bank can focus its campaigns on customers more likely to subscribe, optimizing resource allocation. However, the low precision suggests that many non-subscribers may still be targeted, potentially increasing costs and reducing campaign efficiency. Therefore, improving precision should be a focus for future modeling efforts.
+These findings have practical implications for the bank’s marketing strategy. By leveraging the model's predictions, the bank can focus its campaigns on customers more likely to subscribe, optimizing resource allocation. However, the low precision suggests that many non-subscribers may still be targeted, potentially increasing costs and reducing campaign efficiency. Therefore, improving precision should be a focus for future modeling efforts. The Precision-Recall curve below in @fig-pr-curve provides a visual view of the balance between precision and recall rates.
 
-![Precision-Recall Curve](../results/figures/pr_curve.png){#fig-pr-curve}
-
-**Figure @fig-pr-curve:** Precision-Recall curve of the logistic regression model, highlighting the trade-off between precision and recall for different thresholds.
+![Precision-Recall curve of the logistic regression model, highlighting the trade-off between precision and recall for different thresholds.](../results/figures/pr_curve.png){#fig-pr-curve}
 
 
 This analysis raises several questions for future research:
