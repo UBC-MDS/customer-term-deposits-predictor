@@ -106,6 +106,7 @@ python scripts/evaluate.py \
 To render the html document, navigate to the root of this project folder in your terminal and run the following command:
 ```
 quarto render analysis/customer-term-deposits-predictor.qmd --to html
+quarto render analysis/customer-term-deposits-predictor.qmd --to pdf
 ```
      
 5. **Shutting down Docker**
