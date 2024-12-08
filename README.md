@@ -101,8 +101,10 @@ python scripts/evaluate.py \
     --x-test-data data/processed/X_test.csv \
     --y-test-data data/processed/y_test.csv \
     --plot-to results/figures
+```
 
-
+To render the html document, navigate to the root of this project folder in your terminal and run the following command:
+```
 quarto render analysis/customer-term-deposits-predictor.qmd --to html
 ```
      
