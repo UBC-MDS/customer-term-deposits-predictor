@@ -3,8 +3,6 @@ import pandera as pa
 from pandera import Column, Check
 import click
 
-@click.command()
-@click.option('--input_path', type=str, help='Path to the cleaned data CSV file.')
 def validate_data(input_path):
     data = pd.read_csv(input_path)
 

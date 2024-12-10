@@ -1,10 +1,15 @@
 import pandas as pd
 import click
+import sys
+import os
+sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
+from src.validate import validate_data
 
 @click.command()
 @click.option('--input_path', type=str, help='Path to the cleaned data CSV file.')
 @click.option('--output_path', type=str, help='Path to save the preprocessed data CSV file.')
 def preprocess_data(input_path, output_path):
+    validate_data(input_path)
     # Load the cleaned data
     data = pd.read_csv(input_path)
 
