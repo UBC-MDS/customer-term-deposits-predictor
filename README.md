@@ -70,9 +70,6 @@ python scripts/clean_data.py \
     --output_path data/processed/cleaned_data.csv
 
 
-python scripts/validate.py \
-    --input_path data/processed/cleaned_data.csv
-
 python scripts/preprocess_data.py \
     --input_path data/processed/cleaned_data.csv \
     --output_path data/processed/preprocessed_data.csv
