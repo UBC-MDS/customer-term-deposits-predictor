@@ -6,34 +6,34 @@ import os
 import shutil
 
 @click.command()
-@click.option('--url', type=str, help='...')
-@click.option('--path1', type=str, help='...')
-@click.option('--path2', type=str, help='...')
-@click.option('--path3', type=str, help='...')
-@click.option('--path4', type=str, help='...')
+@click.option('--url', type=str, help='URL to download the dataset')
+@click.option('--download_zip_file1', type=str, help='path to load first zipfile')
+@click.option('--zip_path', type=str, help='path to first file')
+@click.option('--download_zip_file2', type=str, help='path to load second zipfile')
+@click.option('--file_path', type=str, help='path to save file')
 
-def main(url, path1, path2, path3, path4):
+def main(url, download_zip_file1, zip_path, download_zip_file2, file_path):
      
     response = requests.get(url)
-    os.makedirs(os.path.dirname(path1), exist_ok=True)
-    with open(path1, 'wb') as f:
+    os.makedirs(os.path.dirname(download_zip_file1), exist_ok=True)
+    with open(download_zip_file1, 'wb') as f:
         f.write(response.content)
 
 
-    with zipfile.ZipFile(path1, 'r') as zip_ref:
-        zip_ref.extractall(path2)
+    with zipfile.ZipFile(download_zip_file1, 'r') as zip_ref:
+        zip_ref.extractall(zip_path)
 
 
-    nested_zip_path = os.path.join(path2, "bank.zip")
+    nested_zip_path = os.path.join(zip_path, "bank.zip")
     with zipfile.ZipFile(nested_zip_path, 'r') as nested_zip_ref:
-        nested_zip_ref.extractall(path4)
+        nested_zip_ref.extractall(file_path)
 
 
-    shutil.rmtree(path2) 
-    os.remove(path1)  
+    shutil.rmtree(zip_path) 
+    os.remove(download_zip_file1)  
 
     # Load the data
-    data = pd.read_csv(path3, sep=';')
+    data = pd.read_csv(download_zip_file2, sep=';')
 
     # Preview the first few rows
     data.head()

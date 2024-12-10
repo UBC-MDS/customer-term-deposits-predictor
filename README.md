@@ -60,10 +60,10 @@ The final report can be found [here](https://ubc-mds.github.io/customer-term-dep
 ```
 python scripts/download_customer_data.py \
     --url https://archive.ics.uci.edu/static/public/222/bank+marketing.zip \
-    --path1 data/raw/bank+marketing.zip  \
-    --path2 data/raw/bank_marketing \
-    --path3 data/raw/bank-full.csv  \
-    --path4 data/raw/
+    --download_zip_file1 data/raw/bank+marketing.zip  \
+    --zip_path data/raw/bank_marketing \
+    --download_zip_file2 data/raw/bank-full.csv  \
+    --file_path data/raw/
 
 python scripts/clean_data.py \
     --input_path data/raw/bank-full.csv \
