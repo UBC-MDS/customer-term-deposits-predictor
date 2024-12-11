@@ -62,7 +62,6 @@ python scripts/download_customer_data.py \
     --url https://archive.ics.uci.edu/static/public/222/bank+marketing.zip \
     --download_zip_file1 data/raw/bank+marketing.zip  \
     --zip_path data/raw/bank_marketing \
-    --download_zip_file2 data/raw/bank-full.csv  \
     --file_path data/raw/
 
 python scripts/clean_data.py \
