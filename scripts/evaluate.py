@@ -3,19 +3,17 @@ import matplotlib.pyplot as plt
 import pickle
 from sklearn import set_config
 import os
-from sklearn.metrics import classification_report, roc_auc_score, confusion_matrix
-from sklearn.metrics import ConfusionMatrixDisplay 
-from sklearn.metrics import PrecisionRecallDisplay
-from sklearn.metrics import RocCurveDisplay
+import sys
+from sklearn.metrics import classification_report
 import click
+sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
+from src.evaluate_plot import generate_evaluation_plots
 
 
 @click.command()
 @click.option('--x-test-data', type=str, help="Path to test data features")
 @click.option('--y-test-data', type=str, help="Path to test data target")
-#@click.option('--pipeline-to', type=str, help="Path to directory where the pipeline object will be written to")
 @click.option('--plot-to', type=str, help="Path to directory where the plot will be written to")
-#@click.option('--seed', type=int, help="Random seed", default=123)
 
 def main(x_test_data, y_test_data, plot_to):
     set_config(transform_output="pandas")
@@ -41,38 +39,14 @@ def main(x_test_data, y_test_data, plot_to):
     report_dict = classification_report(y_test, y_pred, output_dict=True)
     pd.DataFrame(report_dict).to_csv("results/tables/metrics.csv")
 
-    #Confusion matrix
-    ConfusionMatrixDisplay.from_estimator(
-        model,
-        X_test_scaled,
-        y_test,
-        values_format="d"
+    # Generate evaluation plots
+    generate_evaluation_plots(
+        model=model,
+        X_test_scaled=X_test_scaled,
+        y_test=y_test,
+        plot_to=plot_to,
+        model_name="Logistic Regression Model"
     )
-    plt.title("Confusion Matrix: Logistic Regression Model")
-    plt.savefig(os.path.join(plot_to, "Confusion_Matrix.png"))
-
-    #Precision-Recall
-    PrecisionRecallDisplay.from_estimator(
-        model,
-        X_test_scaled,
-        y_test,
-        pos_label=True,
-        name='Logistic Regression Model'
-    )
-    plt.title("Precision-Recall Curve")
-    plt.savefig(os.path.join(plot_to, "PR_curve.png"))
-
-    #ROC
-    RocCurveDisplay.from_estimator(
-        model,
-        X_test_scaled,
-        y_test,
-        pos_label=True,
-        name='Logistic Regression Model'
-    )
-    plt.title("ROC Curve")
-    plt.savefig(os.path.join(plot_to, "ROC_curve.png"))
-
 
 if __name__ == '__main__':
     main()
