@@ -1,4 +1,5 @@
 import os
+from sklearn.base import is_classifier
 from sklearn.metrics import ConfusionMatrixDisplay, PrecisionRecallDisplay, RocCurveDisplay
 import matplotlib.pyplot as plt
 
@@ -19,6 +20,11 @@ def generate_evaluation_plots(model, X_test_scaled, y_test, plot_to, model_name=
     >>> generate_evaluation_plots(model, X_test_scaled, y_test, plot_to="plots", model_name="Logistic Regression Model")
     plots are made
     """
+    if not is_classifier(model):
+        raise ValueError("The provided model is not a valid classifier.")
+    
+    os.makedirs(plot_to, exist_ok=True)
+
     # Confusion Matrix
     ConfusionMatrixDisplay.from_estimator(
         model,
