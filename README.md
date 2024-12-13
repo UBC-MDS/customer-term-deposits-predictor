@@ -76,10 +76,8 @@ python scripts/preprocess_data.py \
 
 python scripts/split_data.py \
     --input_path data/processed/preprocessed_data.csv \
-    --output_train_x data/processed/X_train.csv \
-    --output_train_y data/processed/y_train.csv \
-    --output_test_x data/processed/X_test.csv \
-    --output_test_y data/processed/y_test.csv
+    --output_path data/processed/ \
+    --testing_size 0.3
 
 python scripts/eda.py \
     --train_x_path data/processed/X_train.csv \
