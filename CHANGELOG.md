@@ -68,6 +68,18 @@ Updated the Code of Conduct to include a team email under the "Enforcement" sect
 
 ---
 
+### 6. Fix `download_customer_data.py` Script
+**Feedback Description:**  
+The script attribute naming convention in `download_customer_data.py` was not descriptive enough. Attribute names only listed different paths, which lacked clarity. Milestone 1 feedback suggested improving the naming of attributes passed to the script with more descriptive names.
+
+**Changes Made:**  
+Updated the `download_customer_data.py` script to include clear and descriptive path names for attributes. Added detailed documentation to the script for better usability and clarity.
+
+**Evidence:**  
+- **Commit Message:** [Improved attribute naming and added documentation](https://github.com/UBC-MDS/customer-term-deposits-predictor/commit/fa8277624052bf961079ae27e1818e323ca72932)  
+
+---
+
 ## Summary of Improvements
 
 1. Updated README file with a direct link to the analysis results.
@@ -75,6 +87,7 @@ Updated the Code of Conduct to include a team email under the "Enforcement" sect
 3. Added a Creative Commons License to the repository.
 4. Addressed data leakage by performing EDA only on training data post-split.
 5. Updated the Code of Conduct to include a team email under the "Enforcement" section.
+6. Improved the `download_customer_data.py` script by making attribute names more descriptive and adding documentation.
 
 ---
 
