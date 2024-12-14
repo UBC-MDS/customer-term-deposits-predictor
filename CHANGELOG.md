@@ -40,7 +40,7 @@ No Creative Commons License was specified for the project report, as noted in th
 Added a Creative Commons License to the project repository. Followed an example license from Tiffany's GitHub repository.
 
 **Evidence:**  
-- **Commit Message:** [Link to commit updating license](#)
+- **Commit Message:** [Link to commit updating license](https://github.com/UBC-MDS/customer-term-deposits-predictor/commit/84c1048184c11ff7f5c084b89f6d3e33cb0917ae)
 
 ---
 
@@ -52,7 +52,7 @@ Milestone 1 feedback highlighted a violation of the "golden rule" by performing 
 Refactored the workflow to ensure EDA is performed only on the training dataset after the data split.
 
 **Evidence:**  
-- **Commit Message:** [Refactored EDA to prevent data leakage](https://github.com/your-username/your-repository/commit/commit-hash)
+- **Commit Message:** [Refactored EDA to prevent data leakage](https://github.com/UBC-MDS/customer-term-deposits-predictor/commit/d71cc1993e3edaa7fd324956cb3fc4b33fb06a01)
 
 ---
 
@@ -80,6 +80,32 @@ Updated the `download_customer_data.py` script to include clear and descriptive 
 
 ---
 
+### 7. Fix Environment Configuration
+**Feedback Description:**  
+1. **Pinned package versions missing:** Almost none of the packages in `environment.yml` were pinned with specific versions.  
+2. **Platform-specific lockfile:** The lockfile was created for `osx-arm64` and wasn't compatible with other platforms.
+
+**Changes Made:**  
+- Added version pinning to all packages in `environment.yml` to ensure consistent environments across different setups.  
+- Updated the lockfile to support multiple platforms (e.g., Linux, Windows, and macOS).  
+
+**Evidence:**  
+- **Commit Message:** [Pinned package versions and updated lockfile](https://github.com/UBC-MDS/customer-term-deposits-predictor/commit/d3b461f162439fc1aaae14b7b5921ccf8effa1c5)
+
+---
+
+### 8. Categorize `bank-full.csv` into Processed or Raw Folder
+**Feedback Description:**  
+The file `bank-full.csv` was standalone and not categorized into either the `processed` or `raw` folder.
+
+**Changes Made:**  
+Moved `bank-full.csv` into the `raw` folder, as it represents raw input data.
+
+**Evidence:**  
+- **Commit Message:** [Moved bank-full.csv](https://github.com/UBC-MDS/customer-term-deposits-predictor/commit/af40dd843cbc4677f906d29194a12fabf263551a)
+
+---
+
 ## Summary of Improvements
 
 1. Updated README file with a direct link to the analysis results.
@@ -88,6 +114,8 @@ Updated the `download_customer_data.py` script to include clear and descriptive 
 4. Addressed data leakage by performing EDA only on training data post-split.
 5. Updated the Code of Conduct to include a team email under the "Enforcement" section.
 6. Improved the `download_customer_data.py` script by making attribute names more descriptive and adding documentation.
+7. Fixed environment configuration by pinning package versions and creating a platform-compatible lockfile.
+8. Categorized `bank-full.csv` into the `raw` folder and updated scripts and documentation accordingly.
 
 ---
 
