@@ -1,6 +1,6 @@
-PHONY: all clean
+.PHONY: all clean
 
-all: data/raw/bank-full.csv data/processed/preprocessed_data.csv data/processed/X_train.csv data/processed/X_test.csv data/processed/y_train.csv data/processed/y_test.csv results/tables/summary_statistics.csv results/figures/target_variable_distribution.png results/figures/balance_distribution.png results/models/logistic_regression_model.pkl scaler.pkl results/figures/feature_densities_by_class.png results/figures/feature_densities_by_class.png results/figures/facet_grid_plot.png results/figures/Confusion_Matrix.png results/figures/ROC_curve.png results/figures/PR_curve.png analysis/customer-term-deposits-predictor.html
+all: data/raw/bank-full.csv data/processed/preprocessed_data.csv data/processed/X_train.csv data/processed/X_test.csv data/processed/y_train.csv data/processed/y_test.csv results/tables/summary_statistics.csv results/figures/target_variable_distribution.png results/figures/balance_distribution.png results/models/logistic_regression_model.pkl scaler.pkl results/figures/feature_densities_by_class.png results/figures/facet_grid_plot.png results/figures/Confusion_Matrix.png results/figures/ROC_curve.png results/figures/PR_curve.png analysis/customer-term-deposits-predictor.html
 
 #download and extract data
 data/raw/bank-full.csv: scripts/download_customer_data.py 
@@ -39,7 +39,7 @@ results/tables/metrics.csv results/tables/summary_statistics.csv results/figures
 	    --tables_dir results/tables
 
 # Train logistic regression model
-results/models/logistic_regression_model.pkl scaler.pkl results/figures/feature_densities_by_class.png results/figures/feature_densities_by_class.png results/figures/facet_grid_plot.png: scripts/fit_logistic_regression.py data/processed/X_train.csv data/processed/y_train.csv
+results/models/logistic_regression_model.pkl scaler.pkl results/figures/feature_densities_by_class.png results/figures/facet_grid_plot.png: scripts/fit_logistic_regression.py data/processed/X_train.csv data/processed/y_train.csv
 	python scripts/fit_logistic_regression.py \
 	    --x-training-data data/processed/X_train.csv \
 	    --y-training-data data/processed/y_train.csv \
@@ -65,4 +65,4 @@ clean:
 		results/models/* \
 		results/figures/* \
 		results/tables/* \
-        analysis/customer-term-deposits-predictor.html	
+        analysis/customer-term-deposits-predictor.html
