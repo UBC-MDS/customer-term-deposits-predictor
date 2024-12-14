@@ -3,7 +3,7 @@ import zipfile
 import os
 import shutil
 
-def read_zip(url, download_zip_file1, zip_path, file_path, zip_file_name):
+def read_zip(url, download_zip_file1, zip_path, file_path, zip_file_name, verify_ssl=False):
     """
     Downloads and extracts a ZIP file, including nested ZIP archives.
 
@@ -62,7 +62,7 @@ def read_zip(url, download_zip_file1, zip_path, file_path, zip_file_name):
     """   
     # Only fetch the file from URL if the URL is not None
     if url:
-        response = requests.get(url)
+        response = requests.get(url, verify=verify_ssl)
         os.makedirs(os.path.dirname(download_zip_file1), exist_ok=True)
         with open(download_zip_file1, 'wb') as f:
             f.write(response.content)
