@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Henry (Mu) Ha, Meagan Gardner, Elshaday Yoseph, Shell (Chaoyu) Ou">
-<meta name="dcterms.date" content="2024-12-06">
+<meta name="dcterms.date" content="2024-12-14">
 
 <title>Predicting Customer Term Deposits</title>
 <style>
@@ -100,7 +100,7 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">December 6, 2024</p>
+      <p class="date">December 14, 2024</p>
     </div>
   </div>
   
@@ -114,7 +114,7 @@ div.csl-indent {
 
 <section id="summary" class="level1">
 <h1>Summary</h1>
-<p>For this analysis, we built a logistic regression classification model using data from a Portuguese banking institution to predict whether a bank client will agree to open a term deposit. A term deposits is a secure investment option where individuals deposit money for a fixed term at an agreed interest rate, with the principal amount and interest paid out at the end of the term. The logistic regression model achieved a macro-average recall of 0.68, indicating moderate predictive power. While the model performs well at identifying non-subscribers, it struggles with precision (0.24) for subscribers. In the 13,564 test cases, the model correctly predicted 1,058 new subscribers, but incorrectly predicted 3525 false positives (clients predicted to subscribe when they would not). These false positives would result in additional phone calls being made, despite not leading to a successful subscription. However, by applying the model’s predictions, the number of phone calls would be significantly reduced, while the overall success rate for subscriber identification would increase to 23.09% (up from 11.78% if all 13,564 calls were made). Moving forward, improving precision should be a key focus for future modeling efforts to enhance both the accuracy and cost-effectiveness of the campaign.</p>
+<p>For this analysis, we built a logistic regression classification model using data from a Portuguese banking institution to predict whether a bank client will agree to open a term deposit. A term deposit is a secure investment option where individuals deposit money for a fixed term at an agreed interest rate, with the principal amount and interest paid out at the end of the term. The logistic regression model achieved a macro-average recall of 0.68, indicating moderate predictive power. While the model performs well at identifying non-subscribers, it struggles with precision (0.24) for subscribers. In the 13,564 test cases, the model correctly predicted 1,058 new subscribers, but incorrectly predicted 3525 false positives (clients predicted to subscribe when they would not). These false positives would result in additional phone calls being made, despite not leading to a successful subscription. However, by applying the model’s predictions, the number of phone calls would be significantly reduced, while the overall success rate for subscriber identification would increase to 23.09% (up from 11.78% if all 13,564 calls were made). Moving forward, improving precision should be a key focus for future modeling efforts to enhance both the accuracy and cost-effectiveness of the campaign.</p>
 </section>
 <section id="introduction" class="level1">
 <h1>Introduction</h1>
@@ -147,7 +147,7 @@ Figure&nbsp;1: Distribution charts comparing training feature variables between 
 <div id="fig-correlation" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-correlation-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="../results/figures/correlation_heatmap.png" class="img-fluid figure-img">
+<img src="../results/figures/feature_densities_by_class.png" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-correlation-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;2: Correlation heatmap of numerical features, showing relationships and multicollinearity.
