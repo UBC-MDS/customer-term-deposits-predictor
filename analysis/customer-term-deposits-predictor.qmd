@@ -1,7 +1,7 @@
 ---
 title: Predicting Customer Term Deposits
 author: 'Henry (Mu) Ha, Meagan Gardner, Elshaday Yoseph, Shell (Chaoyu) Ou'
-date: 2024/12/06
+date: 2024/12/14
 format:
   html:
     toc: true
@@ -26,7 +26,7 @@ precision_score = round(float(scoring_metrics.loc['precision', '1']),2)
 
 # Summary
 
-For this analysis, we built a logistic regression classification model using data from a Portuguese banking institution to predict whether a bank client will agree to open a term deposit. A term deposits is a secure investment option where individuals deposit money for a fixed term at an agreed interest rate, with the principal amount and interest paid out at the end of the term.  The logistic regression model achieved a macro-average recall of `{python} recall_macro_avg`, indicating moderate predictive power. While the model performs well at identifying non-subscribers, it struggles with precision (`{python} precision_score`) for subscribers. In the 13,564 test cases, the model correctly predicted 1,058 new subscribers, but incorrectly predicted 3525 false positives (clients predicted to subscribe when they would not). These false positives would result in additional phone calls being made, despite not leading to a successful subscription. However, by applying the model’s predictions, the number of phone calls would be significantly reduced, while the overall success rate for subscriber identification would increase to 23.09% (up from 11.78% if all 13,564 calls were made). Moving forward, improving precision should be a key focus for future modeling efforts to enhance both the accuracy and cost-effectiveness of the campaign.
+For this analysis, we built a logistic regression classification model using data from a Portuguese banking institution to predict whether a bank client will agree to open a term deposit. A term deposit is a secure investment option where individuals deposit money for a fixed term at an agreed interest rate, with the principal amount and interest paid out at the end of the term.  The logistic regression model achieved a macro-average recall of `{python} recall_macro_avg`, indicating moderate predictive power. While the model performs well at identifying non-subscribers, it struggles with precision (`{python} precision_score`) for subscribers. In the 13,564 test cases, the model correctly predicted 1,058 new subscribers, but incorrectly predicted 3525 false positives (clients predicted to subscribe when they would not). These false positives would result in additional phone calls being made, despite not leading to a successful subscription. However, by applying the model’s predictions, the number of phone calls would be significantly reduced, while the overall success rate for subscriber identification would increase to 23.09% (up from 11.78% if all 13,564 calls were made). Moving forward, improving precision should be a key focus for future modeling efforts to enhance both the accuracy and cost-effectiveness of the campaign.
 
 # Introduction 
 
@@ -56,7 +56,7 @@ To prepare the dataset for analysis, we addressed missing values and removed irr
 
 The correlation heatmap in @fig-correlation reveals that most numerical features have weak or negligible correlations, indicating low multicollinearity and diverse contributions to prediction. A notable moderate correlation (0.45) exists between pdays and previous, suggesting some redundancy, but other features like age, balance, and campaign show minimal linear relationships. This suggests that the numerical features are largely independent and suitable for modeling without significant concerns about collinearity.
 
-![Correlation heatmap of numerical features, showing relationships and multicollinearity.](../results/figures/correlation_heatmap.png){#fig-correlation}
+![Correlation heatmap of numerical features, showing relationships and multicollinearity.](../results/figures/feature_densities_by_class.png){#fig-correlation}
 
 
 # Results and Discussion

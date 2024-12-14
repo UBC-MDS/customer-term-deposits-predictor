@@ -64,7 +64,7 @@ The email address under the "Enforcement" section of the Code of Conduct should 
 Updated the Code of Conduct to include a team email under the "Enforcement" section.
 
 **Evidence:**  
-- **Commit Message:** [Add Code of Conduct](https://github.com/UBC-MDS/customer-term-deposits-predictor/commit/3f7673399b4a743e368c79830bf890664c9d409c)
+- **Commit Message:** [Add Code of Conduct](https://github.com/UBC-MDS/customer-term-deposits-predictor/commit/54bd749420578e68e0895d2d7a14037ceabb23d3#diff-ffdbe3a1e7ee93cacfc080b6c635ccf3a8f6b0f00f2fb884f78c6b5f9dac8fd2)
 
 ---
 
@@ -103,6 +103,51 @@ Moved `bank-full.csv` into the `raw` folder, as it represents raw input data.
 
 **Evidence:**  
 - **Commit Message:** [Moved bank-full.csv](https://github.com/UBC-MDS/customer-term-deposits-predictor/commit/af40dd843cbc4677f906d29194a12fabf263551a)
+
+---
+
+### 8. Add function docstring
+**Feedback Description:**  
+Adding docstrings for each function would make the code easier to understand and use.
+
+**Evidence:**
+- **src folder link:** [link to src folder with all functions and their docstrings](https://github.com/UBC-MDS/customer-term-deposits-predictor/tree/main/src) 
+
+---
+
+### 9. Error handling
+**Feedback Description:**
+Consider adding checks for common issues in scripts, such as missing input files or directories.
+
+**Changes Made:**
+This was completed as part of the Milestone 4 requirements. Tests were added to a tests file for all functions.
+
+**Evidence:**
+- **test folder link:** [link to test folder](https://github.com/UBC-MDS/customer-term-deposits-predictor/tree/main/tests)
+
+---
+
+### 10. Validation script
+**Feedback Description:**
+README instructions doesn't run validate.py. A person who is trying to reproduce this analysis should run the same validation to ensure input data is correct.
+
+**Changes Made:**
+The validation script was changed into a function and incorporated into the preprocessed script for better code flow
+
+**Evidence:**
+- **Commit message:** [Validate function called in preprocessed script](https://github.com/UBC-MDS/customer-term-deposits-predictor/commit/fbf47bdc8eb4c30a280f12f786d278fdf930ae10)
+
+---
+
+### 11. Quarto Render issues in Docker
+**Feedback Description:**
+Wasn't able to render to report using the container environment.
+
+**Changes Made:**
+The README file was updated to provide more specific details to run the environment in the docker container.
+
+**Evidence:**
+- **Commit message:** [README file instructions updated](https://github.com/UBC-MDS/customer-term-deposits-predictor/commit/85170d44971649c322cb430dadbc5749abd369a3#diff-b335630551682c19a781afebcf4d07bf978fb1f8ac04c6bf87428ed5106870f5)
 
 ---
 
