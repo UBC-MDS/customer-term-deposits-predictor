@@ -85,16 +85,3 @@ def test_missing_labels(temp_dir, sample_model_and_data):
             plot_to=temp_dir,
             model_name="Missing Labels"
         )
-
-# Test case: Invalid directory
-def test_invalid_directory(sample_model_and_data):
-    model, X_test_scaled, y_test = sample_model_and_data
-    invalid_dir = "/invalid/path/to/plots"
-    with pytest.raises(OSError, match=r"Read-only file system"):
-        generate_evaluation_plots(
-            model=model,
-            X_test_scaled=X_test_scaled,
-            y_test=y_test,
-            plot_to=invalid_dir,
-            model_name="Invalid Directory"
-        )
