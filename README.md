@@ -56,55 +56,23 @@ The final report can be found [here](https://ubc-mds.github.io/customer-term-dep
    - Navigate to the analysis folder and open the `customer-term-deposits-predictor.ipynb` notebook
    - Under the "Kernel" menu select "Restart Kernel and Run all Cells..."
 
-4. Open terminal and run the following:
+4. **IMPORTANT:** In the docker terminal, run the following:
 ```
-python scripts/download_customer_data.py \
-    --url https://archive.ics.uci.edu/static/public/222/bank+marketing.zip \
-    --download_zip_file1 data/raw/bank+marketing.zip  \
-    --zip_path data/raw/bank_marketing \
-    --file_path data/raw/ \
-    --zip_file_name bank.zip
+source ~/.bashrc
 
-python scripts/clean_data.py \
-    --input_path data/raw/bank-full.csv \
-    --output_path data/processed/cleaned_data.csv
-
-
-python scripts/preprocess_data.py \
-    --input_path data/processed/cleaned_data.csv \
-    --output_path data/processed/preprocessed_data.csv
-
-python scripts/split_data.py \
-    --input_path data/processed/preprocessed_data.csv \
-    --output_path data/processed/ \
-    --testing_size 0.3
-
-python scripts/eda.py \
-    --train_x_path data/processed/X_train.csv \
-    --train_y_path data/processed/y_train.csv \
-    --figures_dir results/figures \
-    --tables_dir results/tables
-
-python scripts/fit_logistic_regression.py \
-    --x-training-data data/processed/X_train.csv \
-    --y-training-data data/processed/y_train.csv \
-    --pipeline-to results/models \
-    --plot-to results/figures \
-    --seed 123
-
-python scripts/evaluate.py \
-    --x-test-data data/processed/X_test.csv \
-    --y-test-data data/processed/y_test.csv \
-    --plot-to results/figures
+conda activate term-deposit-predictor
 ```
 
-To render the html document, navigate to the root of this project folder in your terminal and run the following command:
+5. Enter the following command to reset the project to a clean state
 ```
-quarto render analysis/customer-term-deposits-predictor.qmd --to html
-quarto render analysis/customer-term-deposits-predictor.qmd --to pdf
+make clean
 ```
+6. In order to run the analysis in full, enter the following command:
+```
+make all
+``` 
      
-5. **Shutting down Docker**
+7. **Shutting down Docker**
    - To close out of the container, exit out of the browser and return back to your terminal.
    - In the terminal where you launched the container, enter `Cntrl` + `C` on your keyboard
    - Then type `docker-compose rm`
